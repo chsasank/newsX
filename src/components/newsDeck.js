@@ -2,13 +2,16 @@ import React, { useState, useEffect } from "react";
 import Masonry from "react-masonry-css";
 import axios from "axios";
 import NewsCard from "./newsCard.js";
+import InfiniteScroll from "react-infinite-scroller";
+import { Link } from "react-router-dom";
+import arrowRightSVG from "../assets/arrow-right.svg";
 
 function Loading(props) {
   if (props.loading) {
     return (
-      <div class="news-loading text-center">
-        <div class="spinner-border" role="status">
-          <span class="sr-only">Loading...</span>
+      <div className="news-loading text-center">
+        <div className="spinner-border" role="status">
+          <span className="sr-only">Loading...</span>
         </div>
       </div>
     );
@@ -18,12 +21,18 @@ function Loading(props) {
 }
 
 function NewsCardDeck(props) {
+  const breakPointsColumns = {
+    default: 3,
+    768: 2,
+    576: 1,
+  };
   return (
     <div className="news-section">
-      <h2 className="news-section-header">#{props.sectionName}</h2>
-      {/* TODO: Breakpoint with width */}
+      <h2 className="news-section-header">
+        <Link to={`/tag/${props.sectionName}`}>#{props.sectionName}</Link>
+      </h2>
       <Masonry
-        breakpointCols={3}
+        breakpointCols={breakPointsColumns}
         className="my-masonry-grid"
         columnClassName="my-masonry-grid_column"
       >
@@ -31,41 +40,59 @@ function NewsCardDeck(props) {
           <NewsCard key={article.url} article={article} />
         ))}
       </Masonry>
-      <Loading loading={props.loading} />
+      <h5 className="news-section-read-more float-right">
+        <Link to={`/tag/${props.sectionName}`}>
+          Read More <img src={arrowRightSVG}></img>
+        </Link>
+      </h5>
     </div>
   );
 }
 
 function NewsSection(props) {
   const [loading, setLoading] = useState(true);
-  const [articlesList, setarticlesList] = useState([]);
-  let tag = props.tag || "latest";
-  const numArticles = props.numArticles || 9;
+  const [articlesList, setArticlesList] = useState([]);
 
-  useEffect(() => {
+  const tag = props.tag || "latest";
+  const numArticles = props.numArticles || 9;
+  const infiniteScroll = props.infiniteScroll || false;
+
+  function loadMoreArticles() {
     setLoading(true);
     axios
       .get("/api/articles", {
         params: {
           tag: tag,
-          offset: 0,
+          offset: articlesList.length,
           limit: numArticles,
         },
       })
       .then((response) => {
         let newArticles = response.data;
-        setarticlesList(newArticles);
+        setArticlesList([...articlesList, ...newArticles]);
         setLoading(false);
       });
-  }, [tag]);
+  }
+  useEffect(() => loadMoreArticles(), []);
 
-  return (
-    <NewsCardDeck
-      articlesList={articlesList}
-      loading={loading}
-      sectionName={tag}
-    />
-  );
+  if (infiniteScroll) {
+    return (
+      <InfiniteScroll
+        loadMore={loadMoreArticles}
+        hasMore={articlesList.length < 500}
+        loader={<Loading key={0} loading={loading} />}
+      >
+        <NewsCardDeck articlesList={articlesList} sectionName={tag} />
+      </InfiniteScroll>
+    );
+  } else {
+    return (
+      <>
+        <NewsCardDeck articlesList={articlesList} sectionName={tag} />
+        <Loading key={0} loading={loading} />
+      </>
+    );
+  }
 }
 
 export default NewsSection;

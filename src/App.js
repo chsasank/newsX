@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import NewsSection from "./components/newsDeck";
 import Header from "./components/header";
+import {TinyButton as ScrollUpButton} from "react-scroll-up-button";
 import {
   BrowserRouter as Router,
   Switch,
@@ -26,6 +27,7 @@ function Home() {
       <NewsSection tag="latest" />
       <NewsSection tag="markets" />
       <NewsSection tag="economy" />
+      <NewsSection tag="companies" />
     </>
   );
 }
@@ -35,8 +37,11 @@ function TagPage() {
   if (tag == null) {
     return <h2>Please select a tag</h2>;
   }
-  return <NewsSection tag={tag} numArticles={20} />;
+  return (
+    <NewsSection key={tag} tag={tag} numArticles={20} infiniteScroll={true} />
+  );
 }
+
 
 function App() {
   return (
@@ -53,6 +58,7 @@ function App() {
             <TagPage />
           </Route>
         </Switch>
+        <ScrollUpButton/>
       </div>
     </Router>
   );

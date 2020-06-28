@@ -57,7 +57,7 @@ def get_articles():
     else:
         articles = Article.objects(predicted_tags=tag)
 
-    articles = articles.order_by('-date')[offset:limit]
+    articles = articles.order_by('-date')[offset: offset + limit]
     return jsonify([
         {
             'id': article.id,
