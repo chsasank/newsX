@@ -26,10 +26,11 @@ function NewsCardDeck(props) {
     768: 2,
     576: 1,
   };
+  let tag = props.sectionName
   return (
     <div className="news-section">
       <h2 className="news-section-header">
-        <Link to={`/tag/${props.sectionName}`}>#{props.sectionName}</Link>
+        <Link to={`/tag/${tag}`}>#{tag}</Link>
       </h2>
       <Masonry
         breakpointCols={breakPointsColumns}
@@ -41,8 +42,8 @@ function NewsCardDeck(props) {
         ))}
       </Masonry>
       <h5 className="news-section-read-more float-right">
-        <Link to={`/tag/${props.sectionName}`}>
-          Read More <img src={arrowRightSVG}></img>
+        <Link to={`/tag/${tag}`}>
+          Read more {tag} news <img src={arrowRightSVG}></img>
         </Link>
       </h5>
     </div>

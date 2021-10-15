@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import NewsSection from "./components/newsDeck";
 import Header from "./components/header";
-import {TinyButton as ScrollUpButton} from "react-scroll-up-button";
+import { TinyButton as ScrollUpButton } from "react-scroll-up-button";
 import {
   BrowserRouter as Router,
   Switch,
@@ -9,6 +9,7 @@ import {
   useParams,
   useLocation,
 } from "react-router-dom";
+
 import "./App.css";
 
 function ScrollToTop() {
@@ -42,7 +43,6 @@ function TagPage() {
   );
 }
 
-
 function App() {
   return (
     <Router>
@@ -58,7 +58,7 @@ function App() {
             <TagPage />
           </Route>
         </Switch>
-        <ScrollUpButton/>
+        <ScrollUpButton />
       </div>
     </Router>
   );

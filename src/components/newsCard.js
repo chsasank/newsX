@@ -24,8 +24,10 @@ function NewsMetadata(props) {
   let website = props.article.website;
   let date = moment(props.article.date, "X").utc();
   let websiteLookup = {
-    moneycontrol: "Moneycontrol",
-    thehindubusinessline: "Business Line",
+    'moneycontrol': "Moneycontrol",
+    'thehindubusinessline': "Business Line",
+    'business-standard': "Business Standard",
+    'economictimes': 'Economic Times'
   };
   return (
     <small>

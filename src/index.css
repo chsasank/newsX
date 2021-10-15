@@ -1,5 +1,5 @@
 :root {
-  --background-color: #fff1e5;
+  --background-color: #FFF9F5;
   --text-color: #262a33;
   --line-color: #333;
   --link-color: #184880;
@@ -106,6 +106,7 @@ a {
 
 .news-section-read-more {
   padding: 0 2.5rem 0 0.5rem;
+  text-transform: capitalize
 }
 
 /* stylelint-disable selector-list-comma-newline-after */

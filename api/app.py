@@ -10,7 +10,7 @@ app = Flask(__name__)
 
 conn = mongodb_connect(
     db='finance',
-    host='192.168.7.116',
+    host='127.0.0.1',
     username='newsReader',
     password='read',
     authentication_source='finance'
@@ -26,7 +26,7 @@ class Article(Document):
     website = StringField()
     date = DateTimeField()
     image = StringField()
-
+ 
     html = FileField()
     text = StringField()
 
