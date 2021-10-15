@@ -12,7 +12,7 @@ parser.add_argument("--website", default=None)
 args = parser.parse_args()
 
 if args.min_date is None:
-    min_date = datetime.now() - timedelta(days=2)
+    min_date = datetime.now() - timedelta(days=1)
 else:
     min_date = dateutil.parser.parse(args.min_date)
 

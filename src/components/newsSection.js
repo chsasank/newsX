@@ -5,20 +5,7 @@ import NewsCard from "./newsCard.js";
 import InfiniteScroll from "react-infinite-scroller";
 import { Link } from "react-router-dom";
 import arrowRightSVG from "../assets/arrow-right.svg";
-
-function Loading(props) {
-  if (props.loading) {
-    return (
-      <div className="news-loading text-center">
-        <div className="spinner-border" role="status">
-          <span className="sr-only">Loading...</span>
-        </div>
-      </div>
-    );
-  } else {
-    return <></>;
-  }
-}
+import Loading from "./loading";
 
 function NewsCardDeck(props) {
   const breakPointsColumns = {
