@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import NewsSection from "./components/newsDeck";
+import NewsSection from "./components/newsSection";
 import Header from "./components/header";
 import { TinyButton as ScrollUpButton } from "react-scroll-up-button";
 import {
@@ -9,6 +9,7 @@ import {
   useParams,
   useLocation,
 } from "react-router-dom";
+import Home from "./components/newsHome";
 
 import "./App.css";
 
@@ -22,16 +23,6 @@ function ScrollToTop() {
   return null;
 }
 
-function Home() {
-  return (
-    <>
-      <NewsSection tag="latest" />
-      <NewsSection tag="markets" />
-      <NewsSection tag="economy" />
-      <NewsSection tag="companies" />
-    </>
-  );
-}
 
 function TagPage() {
   let { tag } = useParams();

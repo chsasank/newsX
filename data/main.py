@@ -1,5 +1,6 @@
 import argparse
 import dateutil.parser
+import time
 from datetime import datetime, timedelta
 from news_lib.update_db import populate_articles, parse_articles_text, \
     fetch_articles_html
@@ -12,7 +13,7 @@ parser.add_argument("--website", default=None)
 args = parser.parse_args()
 
 if args.min_date is None:
-    min_date = datetime.now() - timedelta(days=2)
+    min_date = datetime.now() - timedelta(days=1)
 else:
     min_date = dateutil.parser.parse(args.min_date)
 
@@ -29,9 +30,11 @@ elif args.action == 'parse_html':
 elif args.action == 'update_tags':
     update_tags(**kwargs)
 elif args.action is None:
-    populate_articles(**kwargs)
-    fetch_articles_html(**kwargs)
-    parse_articles_text(**kwargs)
-    update_tags(**kwargs)
+    while True:
+        populate_articles(**kwargs)
+        fetch_articles_html(**kwargs)
+        parse_articles_text(**kwargs)
+        update_tags(**kwargs)
+        time.sleep(30)
 else:
     raise NotImplementedError
