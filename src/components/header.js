@@ -1,30 +1,29 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
 
-function Header() {
+function Header(props) {
+  const buttonchange = () =>{
+    props.onButton();
+  }
+  
   return (
-    <header className="blog-header py-3" >
-      <div className="row flex-nowrap justify-content-between align-items-center">
-        <div className="col-4 pt-1">
-          <a className="text-muted" href="#">
-            Subscribe
-          </a>
+<nav className="navbar sticky-top navbar-expand-lg navbar-light news-header">
+  <div className="row flex-nowrap justify-content align-items-center py-3">
+  <div className="col-4 pt-1">
+     <a className="text-muted" href="#">
+       Subscribe
+       </a>
+         </div>
+        <div className="col-4 text-center title_navbar-center nav_text_title">
+          <img src="../../logo192.png" width="30" height="30" alt="" />
+          <a className="navbar-title " href="/"> NewsX</a>
         </div>
-        <div className="col-4 text-center">
-          <NavLink to="/" activeClassName="blog-header-logo text-dark">
-            NewsX
-          </NavLink>
-        </div>
-        <div className="col-4 d-flex justify-content-end align-items-center">
-          <a className="text-muted" href="#" aria-label="Search">
-            {/* <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" className="mx-3" role="img" viewBox="0 0 24 24" focusable="false"><title>Search</title><circle cx="10.5" cy="10.5" r="7.5"></circle><path d="M21 21l-5.2-5.2"></path></svg> */}
-          </a>
-          <a className="btn btn-sm btn-outline-secondary" href="#">
-            Sign up
-          </a>
-        </div>
-      </div>
-    </header>
+        <div className="col-4 d-flex justify-content-end align-items-center title_navbar-right">
+           <button className="btn btn-sm btn-outline-secondary" onClick={buttonchange}>
+             Dark mode
+           </button>
+         </div>
+  </div>
+</nav>
   );
 }
 

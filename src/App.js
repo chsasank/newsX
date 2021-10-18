@@ -1,5 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useState,useEffect } from "react";
 import NewsSection from "./components/newsSection";
+import Home from "./components/newsHome";
 import Header from "./components/header";
 import { TinyButton as ScrollUpButton } from "react-scroll-up-button";
 import {
@@ -9,12 +10,14 @@ import {
   useParams,
   useLocation,
 } from "react-router-dom";
-import Home from "./components/newsHome";
+
 
 import "./App.css";
+import"./index.css";
 
 function ScrollToTop() {
   const { pathname } = useLocation();
+
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -35,12 +38,18 @@ function TagPage() {
 }
 
 function App() {
+  const storedDarkMode = localStorage.getItem("DARK_MODE");
+  const [darkMode, setDarkMode] = useState(storedDarkMode);
+  const toggleDarkMode = () => setDarkMode(darkMode ? false : true);
+  useEffect(() => {
+    localStorage.setItem("DARK_MODE", darkMode);
+  }, [darkMode]);
   return (
+  <div className='App' data-theme={darkMode ? "dark" : "light"}>
     <Router>
-      <ScrollToTop />
+    <ScrollToTop />
       <div className="container">
-        <Header />
-
+        <Header onButton={toggleDarkMode}/>
         <Switch>
           <Route exact path="/">
             <Home />
@@ -52,6 +61,7 @@ function App() {
         <ScrollUpButton />
       </div>
     </Router>
+  </div>
   );
 }
 
