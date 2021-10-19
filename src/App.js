@@ -38,14 +38,20 @@ function TagPage() {
 }
 
 function App() {
-  const storedDarkMode = localStorage.getItem("DARK_MODE");
-  const [darkMode, setDarkMode] = useState(storedDarkMode);
-  const toggleDarkMode = () => setDarkMode(darkMode ? false : true);
+  const [dark, setDark] = useState(getMode);
+  
+  const toggleDarkMode = () => setDark((prevMode) => !prevMode);
   useEffect(() => {
-    localStorage.setItem("DARK_MODE", darkMode);
-  }, [darkMode]);
+    localStorage.setItem("dark", JSON.stringify(dark));
+  }, [dark]);
+
+  function getMode() {
+    const savedmode = JSON.parse(localStorage.getItem("dark"));
+    console.log(savedmode)
+    return savedmode || false;
+  }
   return (
-  <div className='App' data-theme={darkMode ? "dark" : "light"}>
+  <div className='App' data-theme={dark ? "dark" : "light"}>
     <Router>
     <ScrollToTop />
       <div className="container">
