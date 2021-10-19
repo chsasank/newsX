@@ -31,10 +31,14 @@ elif args.action == 'update_tags':
     update_tags(**kwargs)
 elif args.action is None:
     while True:
-        populate_articles(**kwargs)
-        fetch_articles_html(**kwargs)
-        parse_articles_text(**kwargs)
-        update_tags(**kwargs)
+        try:
+            populate_articles(**kwargs)
+            fetch_articles_html(**kwargs)
+            parse_articles_text(**kwargs)
+            update_tags(**kwargs)
+        except:
+            pass 
+
         time.sleep(30)
 else:
     raise NotImplementedError
