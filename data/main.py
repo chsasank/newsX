@@ -37,6 +37,8 @@ elif args.action is None:
             parse_articles_text(**kwargs)
             update_tags(**kwargs)
         except:
-            time.sleep(30)
+            pass 
+
+        time.sleep(30)
 else:
     raise NotImplementedError
